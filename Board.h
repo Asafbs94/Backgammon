@@ -21,6 +21,7 @@ private:
     DiscGroup discs[26];
     static const int WHITE_EATEN = 0;
     static const int BLACK_EATEN = 25;
+    unsigned int x;
 public:
     Board();
 

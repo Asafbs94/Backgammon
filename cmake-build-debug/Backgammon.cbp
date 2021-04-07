@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/Asaf-PC/CLionProjects/Backgammon/Board.h">
 			<Option target="Backgammon"/>
 		</Unit>
+		<Unit filename="C:/Users/Asaf-PC/CLionProjects/Backgammon/Player.cpp">
+			<Option target="Backgammon"/>
+		</Unit>
+		<Unit filename="C:/Users/Asaf-PC/CLionProjects/Backgammon/Player.h">
+			<Option target="Backgammon"/>
+		</Unit>
 		<Unit filename="C:/Users/Asaf-PC/CLionProjects/Backgammon/main.cpp">
 			<Option target="Backgammon"/>
 		</Unit>
