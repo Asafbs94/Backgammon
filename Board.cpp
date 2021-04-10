@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Board.h"
-
 using namespace std;
 
 
@@ -87,6 +86,28 @@ void Board::print_bot_row(int index) const {
         cout << " " << letter << " ";
     }
     cout << "+" << endl;
+}
+
+void Board::disc_movement(Player* player,unsigned int dice1,unsigned int dice2) {
+    bool legal_move = false;
+    unsigned move_from,move_to;
+    while (!legal_move) {
+        cout << "Enter "<<player->color<<" move:"<<endl;
+        cin >> move_from;
+        cin >> move_to;
+        if (check_legal_movement(*player,dice1,dice2,move_from,move_to)){
+            //TODO move disc group to-from
+            legal_move = true;
+        }
+        else {
+            legal_move = false;
+        }
+    }
+}
+
+bool Board::check_legal_movement(Player player,unsigned int dice1, unsigned int dice2, unsigned int move_from,unsigned int move_to) const {
+    //TODO check if the players move is legit
+    return false;
 }
 
 

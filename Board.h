@@ -1,6 +1,6 @@
 #ifndef BACKGAMMON_BOARD_H
 #define BACKGAMMON_BOARD_H
-
+#include "Player.h"
 using namespace std;
 
 enum Color {
@@ -32,6 +32,10 @@ public:
     void print_top_row(int index) const;
 
     void print_bot_row(int index) const;
+
+    void disc_movement(Player* player,unsigned int dice1,unsigned int dice2);
+
+    bool check_legal_movement(Player player,unsigned int dice1,unsigned int dice2,unsigned move_from,unsigned int move_to) const;
 };
 
 #endif //BACKGAMMON_BOARD_H

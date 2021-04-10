@@ -3,8 +3,8 @@
 
 CMakeFiles/Backgammon.dir/Board.cpp.obj: ../Board.cpp
 CMakeFiles/Backgammon.dir/Board.cpp.obj: ../Board.h
+CMakeFiles/Backgammon.dir/Board.cpp.obj: ../Player.h
 
-CMakeFiles/Backgammon.dir/Player.cpp.obj: ../Board.h
 CMakeFiles/Backgammon.dir/Player.cpp.obj: ../Player.cpp
 CMakeFiles/Backgammon.dir/Player.cpp.obj: ../Player.h
 
