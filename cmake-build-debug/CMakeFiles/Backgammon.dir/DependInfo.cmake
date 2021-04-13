@@ -5,7 +5,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Asaf-PC/CLionProjects/Backgammon/Board.cpp" "C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/Backgammon.dir/Board.cpp.obj"
-  "C:/Users/Asaf-PC/CLionProjects/Backgammon/Player.cpp" "C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/Backgammon.dir/Player.cpp.obj"
   "C:/Users/Asaf-PC/CLionProjects/Backgammon/main.cpp" "C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/Backgammon.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

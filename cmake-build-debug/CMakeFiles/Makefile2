@@ -93,12 +93,12 @@ clean: CMakeFiles/Backgammon.dir/clean
 CMakeFiles/Backgammon.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4 "Built target Backgammon"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target Backgammon"
 .PHONY : CMakeFiles/Backgammon.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Backgammon.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Backgammon.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/Backgammon.dir/rule
