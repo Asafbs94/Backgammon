@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Game_board.h"
+#include <cstdlib>
 
 using namespace std;
 
 
-Game_board::Game_board(unsigned int &x) :  x(x), dice1(), dice2() {
+Game_board::Game_board(unsigned int &x) : ejected_white(), ejected_black(),  x(x),blocked_moves(0), dice1(), dice2() {
     discs[1] = DiscGroup(2, White);
     discs[6] = DiscGroup(5, Black);
     discs[8] = DiscGroup(3, Black);
@@ -25,9 +26,9 @@ unsigned int Game_board::seed_generator() {
 }
 
 int Game_board::max_group(bool top) const {
-    int extra = top ? 1 : 13;
+    int extra = top ? 0 : 12;
     int max = 0;
-    for (int i = extra; i < 13 + extra; i++) {
+    for (int i = extra + 1; i < 13 + extra; i++) {
         if (discs[i].count > max) {
             max = discs[i].count;
         }
@@ -37,7 +38,7 @@ int Game_board::max_group(bool top) const {
 
 void Game_board::print(bool flip) const {
     if (flip) {
-        cout << "13 14 15 16 17 18     19 20 21 22 23 24" << endl;
+        cout << " 13 14 15 16 17 18    19 20 21 22 23 24" << endl;
     } else {
         cout << " 12 11 10  9  8  7     6  5  4  3  2  1" << endl;
     }
@@ -102,11 +103,13 @@ void Game_board::disc_movement(Player player) {
         if (!cin) {
             break;
         }
+
         if (check_possible_move(player)) {
             cout << "No possible move for " << player.getColorString() << endl;
+            blocked_moves = true;
             return;
         }
-        cout << "Enter " << player.getColorString() << " move:"<<endl;
+        cout << "Enter " << player.getColorString() << " move: "<<endl;
         cin >> move_from;
         cin >> move_to;
         if (player.color == Black && move_from == 25) {
@@ -114,7 +117,7 @@ void Game_board::disc_movement(Player player) {
         }
         if (cin.fail()) {
             cout << "Missing user input - quiting game." << endl;
-            return;
+            exit(0);
         }
 
         if (check_legal_movement(player, move_from, move_to)) {
@@ -152,10 +155,10 @@ bool Game_board::check_legal_movement(Player player, int move_from,
     }
 
     if (move_from > 26 || move_from < 0 || move_to > 24 || move_to < 0 || movement > 6 || movement < 0) {
-        cout << "Illegal move: From/to out of bounds (from=" << original_from << ",to=" << original_to << ")." << endl;
+        cout << "Illegal move: From/to out of bounds (from=" << original_from << ", to=" << original_to << ")." << endl;
         return false;
-    } else if (player.color == White && discs[WHITE_EATEN].count > 0 && move_from != WHITE_EATEN ||
-               player.color == Black && discs[BLACK_EATEN].count > 0 && move_from != BLACK_EATEN) {
+    } else if ((player.color == White && discs[WHITE_EATEN].count > 0 && move_from != WHITE_EATEN) ||
+               (player.color == Black && discs[BLACK_EATEN].count > 0 && move_from != BLACK_EATEN)) {
         {
             cout << "Illegal move: Player still has captured piece(s)." << endl;
             return false;
@@ -167,10 +170,10 @@ bool Game_board::check_legal_movement(Player player, int move_from,
         cout << "Illegal move: Cannot capture more that one piece at location " << original_to << "." << endl;
         return false;
     } else if (!check_eject_allow(player) && move_to == OUT_OF_PLAY) {
-        cout << "Illegal move: Cannot bear off while not all pieces at home ." << endl;
+        cout << "Illegal move: Cannot bear off while not all pieces at home." << endl;
         return false;
     } else if (movement != dice1 && movement != dice2 && move_to != OUT_OF_PLAY) {
-        cout << "Illegal move: No value of " << movement << " in dice roll" << endl;
+        cout << "Illegal move: No value of " << movement << " in dice roll " << endl;
         return false;
     }
     return true;
@@ -223,11 +226,13 @@ bool Game_board::check_eject_allow(Player player) {
 
 bool Game_board::initial_roll(Player black, Player white) {
     unsigned int initial_roll_white, initial_roll_black;
-    initial_roll_white = white.roll_dice(seed_generator());
-    initial_roll_black = black.roll_dice(seed_generator());
-    cout << "White player casts " << initial_roll_white << ",";
-    cout << " black player casts " << initial_roll_black << endl;
-
+    do {
+        initial_roll_white = white.roll_dice(seed_generator());
+        initial_roll_black = black.roll_dice(seed_generator());
+        cout << "White player casts " << initial_roll_white << ",";
+        cout << " black player casts " << initial_roll_black << endl;
+    }
+    while (initial_roll_black == initial_roll_white);
     return initial_roll_black > initial_roll_white;
 }
 
@@ -258,18 +263,24 @@ bool Game_board::check_eaten_removal(Player player, int move_from, int move_to) 
     }
     switch (player.color) {
         case Black:
-            if (discs[BLACK_EATEN].count > 0 && discs[move_to].color != White ||
-                discs[move_to].color == White && discs[move_to].count == 1) {
+            if ((discs[BLACK_EATEN].count > 0 && discs[move_to].color != White) ||
+                (discs[move_to].color == White && discs[move_to].count == 1)) {
                 return true;
             } else {
                 return false;
             }
 
         case White:
-            break;
-        case None:
+            if ((discs[WHITE_EATEN].count > 0 && discs[move_to].color != Black) ||
+                (discs[move_to].color == Black && discs[move_to].count == 1)) {
+                return true;
+            } else {
+                return false;
+            }
+        default:
             break;
     }
+    return false;
 }
 
 unsigned int Game_board::is_double() const {
@@ -285,18 +296,18 @@ bool Game_board::check_possible_move(Player player) {
             if (discs[WHITE_EATEN].count > 0 && (!check_eaten_removal(player, WHITE_EATEN, dice1) ||
                                                  !check_eaten_removal(player, WHITE_EATEN, dice2)
             )) {
-                if (discs[WHITE_EATEN].count > 1 && discs[dice1].color == Black && discs[dice1].count > 1 ||
-                    discs[dice2].color == Black && discs[dice2].count > 1)
+                if ((discs[WHITE_EATEN].count > 1 && discs[dice1].color == Black && discs[dice1].count > 1) ||
+                    (discs[dice2].color == Black && discs[dice2].count > 1))
                     return true;
             }
         case Black:
             if (get_discs_count(BLACK_EATEN) > 0 && (!check_eaten_removal(player, BLACK_EATEN, 25 - dice1) ||
                                                      !check_eaten_removal(player, BLACK_EATEN, 25 - dice2)))
-                if (discs[BLACK_EATEN].count > 1 && discs[25 - dice1].color == White && discs[25 - dice1].count > 1 ||
-                    discs[25 - dice2].color == White && discs[25 - dice2].count > 1)
+                if ((discs[BLACK_EATEN].count > 1 && discs[25 - dice1].color == White && discs[25 - dice1].count > 1) ||
+                    (discs[25 - dice2].color == White && discs[25 - dice2].count > 1))
                     return true;
         case None:
-            break;
+            break; // not possible , added to avoid compiler warnings
     }
     return false;
 }
@@ -310,4 +321,9 @@ bool Game_board::check_win() const {
         return false;
     }
     return false;
+}
+
+bool Game_board::is_blocked() const {
+
+    return blocked_moves;
 }

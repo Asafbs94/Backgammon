@@ -10,7 +10,7 @@ struct Player {
     Color color;
     explicit Player(Color color) : color(color){}
 
-    unsigned int roll_dice(unsigned int R) {
+    int roll_dice(unsigned int R) {
         return (R % 6) + 1;
     }
 
@@ -31,7 +31,7 @@ class Game_board {
 private:
     DiscGroup discs[27];
 
-    int ejected_white,ejected_black;
+    int ejected_white,ejected_black; // counter for the ejected discs. will help to declare the winner
     static const int OUT_OF_PLAY = 0; // index for ejected discs
     static const int WHITE_EATEN = 25; // index for eaten white discs
     static const int BLACK_EATEN = 26  ; // index for eaten black discs
@@ -45,10 +45,11 @@ private:
     void print_bot_row(int index) const;
     //
 public:
+     bool blocked_moves; // will be true if there is no possible moves
      int dice1,dice2; // implements the game board dices
      explicit Game_board(unsigned int &x); //ctor , sets the seed for the game to allow auto-check
 
-
+    bool is_blocked () const;
     bool initial_roll(Player black, Player white); // will return true if black won the init. roll, false otherwise.
 
     unsigned int seed_generator(); // generates the seed for the dices roll, made for the auto-tester
@@ -74,8 +75,8 @@ public:
 
     unsigned int is_double() const; // will give the player 4 moves if double rolled
 
-    bool check_win() const;
-    bool check_possible_move(Player player);
+    bool check_win() const; // will be flagged true if player won
+    bool check_possible_move(Player player); // checking if the player is blocked for movement
 };
 
 #endif //BACKGAMMON_GAME_BOARD_H
