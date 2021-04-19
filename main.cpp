@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sstream>
 #include "Game_board.h"
 
 using namespace std;
@@ -9,7 +8,6 @@ int main() {
 
 
     bool player_turn_flag; // true for black turn, false for white.
-    bool game_state; // game state flag, will turn false if one of the players won.
     unsigned int seed;
 
     Player white = Player(White);
@@ -30,7 +28,8 @@ int main() {
     }
 
 
-    while (!game_state) {
+    while (!b.check_win()) {
+
         if (!cin) {
             break;
         }
@@ -40,9 +39,12 @@ int main() {
             b.dice2 = black.roll_dice(b.seed_generator());
             cout << "Black rolls " << b.dice1 << "-";
             cout << b.dice2 << endl;
-
-            for (int i = 0; i < b.is_double(); i++) {
+            for (unsigned int i = 0; i < b.is_double() ; i++) {
                 b.disc_movement(black);
+                if (b.is_double()==0){
+                    return 0;
+
+                }
             }
             player_turn_flag = true;
         }
@@ -54,12 +56,16 @@ int main() {
 
             cout << b.dice2 << endl;
 
-            for (int i = 0; i < b.is_double(); i++) {
+            for (unsigned int i = 0; i < b.is_double() ; i++) {
                 b.disc_movement(white);
+                if (b.is_double()==0){
+                    return 0;
+                }
             }
             player_turn_flag = false;
+
         }
-        game_state = b.get_discs_count(0) == 16;
+
     }
     return 0;
 }

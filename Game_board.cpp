@@ -4,7 +4,7 @@
 using namespace std;
 
 
-Game_board::Game_board(unsigned int &x) : x(x), dice1(), dice2() {
+Game_board::Game_board(unsigned int &x) :  x(x), dice1(), dice2() {
     discs[1] = DiscGroup(2, White);
     discs[6] = DiscGroup(5, Black);
     discs[8] = DiscGroup(3, Black);
@@ -25,7 +25,7 @@ unsigned int Game_board::seed_generator() {
 }
 
 int Game_board::max_group(bool top) const {
-    int extra = top ? 0 : 13;
+    int extra = top ? 1 : 13;
     int max = 0;
     for (int i = extra; i < 13 + extra; i++) {
         if (discs[i].count > max) {
@@ -106,24 +106,27 @@ void Game_board::disc_movement(Player player) {
             cout << "No possible move for " << player.getColorString() << endl;
             return;
         }
-        cout << "Enter " << player.getColorString() << " move:";
+        cout << "Enter " << player.getColorString() << " move:"<<endl;
         cin >> move_from;
-        cout << move_from << " ";
         cin >> move_to;
-        cout << move_to << endl;
-        if(player.color == Black && move_from == 25){
+        if (player.color == Black && move_from == 25) {
             move_from = BLACK_EATEN;
         }
         if (cin.fail()) {
             cout << "Missing user input - quiting game." << endl;
-            exit(-1);
+            return;
         }
 
         if (check_legal_movement(player, move_from, move_to)) {
             if (!check_possible_eat(player, move_from, move_to)) {
                 white_index_converter(player, move_from, move_to);
+
                 discs[move_from] = DiscGroup(get_discs_count(move_from) - 1, player.color);
                 discs[move_to] = DiscGroup(get_discs_count(move_to) + 1, player.color);
+
+                if (move_to == OUT_OF_PLAY) {
+                    player.color == Black ? ejected_black++ : ejected_white++;
+                }
                 legal_move = true;
             } else {
                 legal_move = true;
@@ -141,7 +144,7 @@ bool Game_board::check_legal_movement(Player player, int move_from,
     unsigned int original_to = move_to;
 
     int movement = move_from - move_to;
-    if (move_from == 26){
+    if (move_from == 26) {
         movement--;
     }
     if (!(move_from == WHITE_EATEN || move_from == BLACK_EATEN)) {
@@ -151,9 +154,8 @@ bool Game_board::check_legal_movement(Player player, int move_from,
     if (move_from > 26 || move_from < 0 || move_to > 24 || move_to < 0 || movement > 6 || movement < 0) {
         cout << "Illegal move: From/to out of bounds (from=" << original_from << ",to=" << original_to << ")." << endl;
         return false;
-    }
-    else if (player.color == White && discs[WHITE_EATEN].count > 0 && move_from != WHITE_EATEN ||
-               player.color == Black && discs[BLACK_EATEN].count > 0 && move_from != BLACK_EATEN ) {
+    } else if (player.color == White && discs[WHITE_EATEN].count > 0 && move_from != WHITE_EATEN ||
+               player.color == Black && discs[BLACK_EATEN].count > 0 && move_from != BLACK_EATEN) {
         {
             cout << "Illegal move: Player still has captured piece(s)." << endl;
             return false;
@@ -161,13 +163,13 @@ bool Game_board::check_legal_movement(Player player, int move_from,
     } else if (discs[move_from].count == 0) {
         cout << "Illegal move: No pieces at from location " << original_from << "." << endl;
         return false;
-    } else if (discs[move_to].count > 1 && discs[move_to].color != player.color) {
+    } else if (discs[move_to].count > 1 && discs[move_to].color != player.color && move_to != OUT_OF_PLAY) {
         cout << "Illegal move: Cannot capture more that one piece at location " << original_to << "." << endl;
         return false;
-    } else if (!check_eject_allow(player) && move_to == 0) {
+    } else if (!check_eject_allow(player) && move_to == OUT_OF_PLAY) {
         cout << "Illegal move: Cannot bear off while not all pieces at home ." << endl;
         return false;
-    } else if (movement != dice1 && movement != dice2) {
+    } else if (movement != dice1 && movement != dice2 && move_to != OUT_OF_PLAY) {
         cout << "Illegal move: No value of " << movement << " in dice roll" << endl;
         return false;
     }
@@ -200,12 +202,13 @@ bool Game_board::check_possible_eat(Player player, int move_from, int move_to) {
     return false;
 }
 
-bool Game_board::check_eject_allow(Player player) const {
+bool Game_board::check_eject_allow(Player player) {
+
     if (discs[25].count > 0 || discs[26].count > 0)
         return false;
     if (player.color == Black)
-        for (unsigned int i = 7; i < 25; ++i) {
-            if (discs[i].color == player.color && discs[i].color > 0)
+        for (unsigned int i = 7; i < 24; ++i) {
+            if (discs[i].color == player.color && discs[i].count > 0)
                 return false;
         }
     else {
@@ -234,6 +237,9 @@ void Game_board::white_index_converter(Player player, int &move_from, int &move_
             move_to = 25 - move_to;
             return;
         }
+    } else if (player.color == White && move_to == OUT_OF_PLAY) {
+        move_from = 25 - move_from;
+        return;
     }
     bool player_color_flag;
     if (player.color == Black) {
@@ -261,21 +267,24 @@ bool Game_board::check_eaten_removal(Player player, int move_from, int move_to) 
 
         case White:
             break;
-
+        case None:
+            break;
     }
 }
 
 unsigned int Game_board::is_double() const {
+    if (check_win()){
+        return 0;
+    }
     return dice1 == dice2 ? 4 : 2;
 }
 
 bool Game_board::check_possible_move(Player player) {
     switch (player.color) {
         case White:
-            cout<<"DISCS:"<<discs[WHITE_EATEN].count<<endl;
             if (discs[WHITE_EATEN].count > 0 && (!check_eaten_removal(player, WHITE_EATEN, dice1) ||
-                !check_eaten_removal(player, WHITE_EATEN, dice2)
-                    ) ){
+                                                 !check_eaten_removal(player, WHITE_EATEN, dice2)
+            )) {
                 if (discs[WHITE_EATEN].count > 1 && discs[dice1].color == Black && discs[dice1].count > 1 ||
                     discs[dice2].color == Black && discs[dice2].count > 1)
                     return true;
@@ -286,6 +295,19 @@ bool Game_board::check_possible_move(Player player) {
                 if (discs[BLACK_EATEN].count > 1 && discs[25 - dice1].color == White && discs[25 - dice1].count > 1 ||
                     discs[25 - dice2].color == White && discs[25 - dice2].count > 1)
                     return true;
+        case None:
+            break;
+    }
+    return false;
+}
+
+bool Game_board::check_win() const {
+    if (ejected_black == 15) {
+        cout << "Black player wins!" << endl;
+        return true;
+    } else if (ejected_white == 15) {
+        cout << "White player wins!" << endl;
+        return false;
     }
     return false;
 }

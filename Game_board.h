@@ -8,8 +8,7 @@ enum Color {
 
 struct Player {
     Color color;
-
-    explicit Player(Color color) : color(color) {};
+    explicit Player(Color color) : color(color){}
 
     unsigned int roll_dice(unsigned int R) {
         return (R % 6) + 1;
@@ -32,6 +31,7 @@ class Game_board {
 private:
     DiscGroup discs[27];
 
+    int ejected_white,ejected_black;
     static const int OUT_OF_PLAY = 0; // index for ejected discs
     static const int WHITE_EATEN = 25; // index for eaten white discs
     static const int BLACK_EATEN = 26  ; // index for eaten black discs
@@ -46,7 +46,6 @@ private:
     //
 public:
      int dice1,dice2; // implements the game board dices
-
      explicit Game_board(unsigned int &x); //ctor , sets the seed for the game to allow auto-check
 
 
@@ -67,7 +66,7 @@ public:
 
     bool check_possible_eat(Player player, int move_from, int move_to); //checks if the player can "eat" each other
 
-    bool check_eject_allow(Player player) const; //checks if the player can eject the discs,by checking the players discs index.
+    bool check_eject_allow(Player player) ; //checks if the player can eject the discs,by checking the players discs index.
 
     void white_index_converter(Player player, int& move_from, int& move_to) ;
 
@@ -75,7 +74,7 @@ public:
 
     unsigned int is_double() const; // will give the player 4 moves if double rolled
 
-
+    bool check_win() const;
     bool check_possible_move(Player player);
 };
 
