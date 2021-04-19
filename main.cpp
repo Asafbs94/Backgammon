@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
-#include "Gameboard.h"
+#include "Game_board.h"
+
 using namespace std;
 
 
@@ -16,52 +17,49 @@ int main() {
 
     cout << "Enter seed" << endl;  //receive a seed for generating random numbers
     cin >> seed;
-    Gameboard b(seed);
+    Game_board b(seed);
 
 
-    if (b.initial_roll(black,white)){
+    if (b.initial_roll(black, white)) {
 
-        cout<<"Black plays first."<<endl;
+        cout << "Black plays first." << endl;
         player_turn_flag = false;
-    }
-    else
-        {
-        cout<<"White plays first."<<endl;
+    } else {
+        cout << "White plays first." << endl;
         player_turn_flag = true;
     }
 
 
-    while (game_state) {
-        if (!cin){
+    while (!game_state) {
+        if (!cin) {
             break;
         }
         b.print(player_turn_flag);
-        if (!player_turn_flag){
+        if (!player_turn_flag) {
             b.dice1 = black.roll_dice(b.seed_generator());
             b.dice2 = black.roll_dice(b.seed_generator());
-            cout<<"Black rolls "<<b.dice1<<"-";
-            cout<<b.dice2<<endl;
+            cout << "Black rolls " << b.dice1 << "-";
+            cout << b.dice2 << endl;
 
-            for(int i=0; i<b.is_double();i++)
-            {
-                b.disc_movement(black, b.dice1, b.dice2);
+            for (int i = 0; i < b.is_double(); i++) {
+                b.disc_movement(black);
             }
             player_turn_flag = true;
         }
-        else{
-                b.dice1 = white.roll_dice(b.seed_generator());
-                b.dice2 = white.roll_dice(b.seed_generator());
-                cout<<"White rolls "<<b.dice1<<"-";
-                cout<<b.dice2<<endl;
+        else {
+            b.dice1 = white.roll_dice(b.seed_generator());
+            b.dice2 = white.roll_dice(b.seed_generator());
 
-                for(int i=0; i<b.is_double();i++)
-                {
-                    b.disc_movement(white, b.dice1, b.dice2);
-                }
+            cout << "White rolls " << b.dice1 << "-";
+
+            cout << b.dice2 << endl;
+
+            for (int i = 0; i < b.is_double(); i++) {
+                b.disc_movement(white);
+            }
             player_turn_flag = false;
         }
-        game_state = true;
+        game_state = b.get_discs_count(0) == 16;
     }
     return 0;
 }
-

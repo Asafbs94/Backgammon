@@ -2,7 +2,7 @@ file(REMOVE_RECURSE
   "Backgammon.exe"
   "Backgammon.exe.manifest"
   "Backgammon.pdb"
-  "CMakeFiles/Backgammon.dir/Board.cpp.obj"
+  "CMakeFiles/Backgammon.dir/Game_board.cpp.obj"
   "CMakeFiles/Backgammon.dir/main.cpp.obj"
   "libBackgammon.dll.a"
 )

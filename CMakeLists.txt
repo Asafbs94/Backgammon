@@ -3,4 +3,4 @@ project(Backgammon)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(Backgammon main.cpp Gameboard.h Gameboard.cpp)
+add_executable(Backgammon main.cpp Game_board.h Game_board.cpp)

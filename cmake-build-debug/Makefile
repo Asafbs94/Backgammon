@@ -142,32 +142,32 @@ Backgammon/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/build
 .PHONY : Backgammon/fast
 
-Gameboard.obj: Gameboard.cpp.obj
+Game_board.obj: Game_board.cpp.obj
 
-.PHONY : Gameboard.obj
+.PHONY : Game_board.obj
 
 # target to build an object file
-Gameboard.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Gameboard.cpp.obj
-.PHONY : Gameboard.cpp.obj
+Game_board.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Game_board.cpp.obj
+.PHONY : Game_board.cpp.obj
 
-Gameboard.i: Gameboard.cpp.i
+Game_board.i: Game_board.cpp.i
 
-.PHONY : Gameboard.i
+.PHONY : Game_board.i
 
 # target to preprocess a source file
-Gameboard.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Gameboard.cpp.i
-.PHONY : Gameboard.cpp.i
+Game_board.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Game_board.cpp.i
+.PHONY : Game_board.cpp.i
 
-Gameboard.s: Gameboard.cpp.s
+Game_board.s: Game_board.cpp.s
 
-.PHONY : Gameboard.s
+.PHONY : Game_board.s
 
 # target to generate assembly for a file
-Gameboard.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Gameboard.cpp.s
-.PHONY : Gameboard.cpp.s
+Game_board.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Backgammon.dir\build.make CMakeFiles/Backgammon.dir/Game_board.cpp.s
+.PHONY : Game_board.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -205,9 +205,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Backgammon
-	@echo ... Gameboard.obj
-	@echo ... Gameboard.i
-	@echo ... Gameboard.s
+	@echo ... Game_board.obj
+	@echo ... Game_board.i
+	@echo ... Game_board.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

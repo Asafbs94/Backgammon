@@ -89,29 +89,29 @@ CMakeFiles/Backgammon.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Backgammon.dir/main.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Asaf-PC\CLionProjects\Backgammon\main.cpp -o CMakeFiles\Backgammon.dir\main.cpp.s
 
-CMakeFiles/Backgammon.dir/Board.cpp.obj: CMakeFiles/Backgammon.dir/flags.make
-CMakeFiles/Backgammon.dir/Board.cpp.obj: ../Board.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Backgammon.dir/Board.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Backgammon.dir\Board.cpp.obj -c C:\Users\Asaf-PC\CLionProjects\Backgammon\Board.cpp
+CMakeFiles/Backgammon.dir/Game_board.cpp.obj: CMakeFiles/Backgammon.dir/flags.make
+CMakeFiles/Backgammon.dir/Game_board.cpp.obj: ../Game_board.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Asaf-PC\CLionProjects\Backgammon\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Backgammon.dir/Game_board.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Backgammon.dir\Game_board.cpp.obj -c C:\Users\Asaf-PC\CLionProjects\Backgammon\Game_board.cpp
 
-CMakeFiles/Backgammon.dir/Board.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Backgammon.dir/Board.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Asaf-PC\CLionProjects\Backgammon\Board.cpp > CMakeFiles\Backgammon.dir\Board.cpp.i
+CMakeFiles/Backgammon.dir/Game_board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Backgammon.dir/Game_board.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Asaf-PC\CLionProjects\Backgammon\Game_board.cpp > CMakeFiles\Backgammon.dir\Game_board.cpp.i
 
-CMakeFiles/Backgammon.dir/Board.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Backgammon.dir/Board.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Asaf-PC\CLionProjects\Backgammon\Board.cpp -o CMakeFiles\Backgammon.dir\Board.cpp.s
+CMakeFiles/Backgammon.dir/Game_board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Backgammon.dir/Game_board.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Asaf-PC\CLionProjects\Backgammon\Game_board.cpp -o CMakeFiles\Backgammon.dir\Game_board.cpp.s
 
 # Object files for target Backgammon
 Backgammon_OBJECTS = \
 "CMakeFiles/Backgammon.dir/main.cpp.obj" \
-"CMakeFiles/Backgammon.dir/Board.cpp.obj"
+"CMakeFiles/Backgammon.dir/Game_board.cpp.obj"
 
 # External object files for target Backgammon
 Backgammon_EXTERNAL_OBJECTS =
 
 Backgammon.exe: CMakeFiles/Backgammon.dir/main.cpp.obj
-Backgammon.exe: CMakeFiles/Backgammon.dir/Board.cpp.obj
+Backgammon.exe: CMakeFiles/Backgammon.dir/Game_board.cpp.obj
 Backgammon.exe: CMakeFiles/Backgammon.dir/build.make
 Backgammon.exe: CMakeFiles/Backgammon.dir/linklibs.rsp
 Backgammon.exe: CMakeFiles/Backgammon.dir/objects1.rsp
