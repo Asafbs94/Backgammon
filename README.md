@@ -2,9 +2,9 @@
 ascii Backgammon game made for homework at cpp course
  
                                                      
-                                                    ASCII Backgammon game
-                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                            Seed init, required for auto check output,will set the results of the dices
+                                          ASCII Backgammon game
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                 Seed init, required for auto check output,will set the results of the dices
                                      
                                      
                             W - WHITE GAME DISCS
