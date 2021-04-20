@@ -5,7 +5,9 @@
 using namespace std;
 
 
-Game_board::Game_board(unsigned int &x) : ejected_white(), ejected_black(),  x(x),blocked_moves(0), dice1(), dice2() {
+Game_board::Game_board(unsigned int &x) : x(x),player_turn_flag(false),blocked_moves(false),dice1(0),dice2(0),ejected_white(0),ejected_black(0)
+{
+    // setting the discs on board
     discs[1] = DiscGroup(2, White);
     discs[6] = DiscGroup(5, Black);
     discs[8] = DiscGroup(3, Black);
@@ -14,6 +16,7 @@ Game_board::Game_board(unsigned int &x) : ejected_white(), ejected_black(),  x(x
     discs[19] = DiscGroup(5, White);
     discs[17] = DiscGroup(3, White);
     discs[13] = DiscGroup(5, Black);
+    //the middle bar for "eaten" discs
     discs[BLACK_EATEN] = DiscGroup(0, Black);
     discs[WHITE_EATEN] = DiscGroup(0, White);
 }
@@ -224,7 +227,7 @@ bool Game_board::check_eject_allow(Player player) {
 
 }
 
-bool Game_board::initial_roll(Player black, Player white) {
+void Game_board::initial_roll(Player black, Player white) {
     unsigned int initial_roll_white, initial_roll_black;
     do {
         initial_roll_white = white.roll_dice(seed_generator());
@@ -233,7 +236,16 @@ bool Game_board::initial_roll(Player black, Player white) {
         cout << " black player casts " << initial_roll_black << endl;
     }
     while (initial_roll_black == initial_roll_white);
-    return initial_roll_black > initial_roll_white;
+    if (initial_roll_black > initial_roll_white) {
+
+        cout << "Black plays first." << endl;
+        player_turn_flag = false;
+
+    } else {
+        cout << "White plays first." << endl;
+        player_turn_flag = true;
+    }
+
 }
 
 void Game_board::white_index_converter(Player player, int &move_from, int &move_to) {
@@ -326,4 +338,50 @@ bool Game_board::check_win() const {
 bool Game_board::is_blocked() const {
 
     return blocked_moves;
+}
+
+void Game_board::start() {
+    Player white = Player(White);
+    Player black = Player(Black);
+    initial_roll(black,white);
+    while (!check_win()) {
+
+        print(player_turn_flag);
+        if (!player_turn_flag) {
+            dice1 = black.roll_dice(seed_generator());
+            dice2 = black.roll_dice(seed_generator());
+            cout << "Black rolls " << dice1 << "-";
+            cout << dice2 << "." << endl;
+            for (unsigned int i = 0; i < is_double(); i++) {
+                disc_movement(black);
+                if (is_blocked()) {
+                    blocked_moves = false;
+                    break;
+                }
+                if (is_double() == 0) {
+                    exit(0);
+
+                }
+            }
+
+            player_turn_flag = true;
+        } else {
+            dice1 = white.roll_dice(seed_generator());
+            dice2 = white.roll_dice(seed_generator());
+
+            cout << "White rolls " << dice1 << "-";
+
+            cout << dice2 << "." << endl;
+
+            for (unsigned int i = 0; i < is_double(); i++) {
+                disc_movement(white);
+                if (is_double() == 0) {
+                    exit(0);
+                }
+            }
+            player_turn_flag = false;
+
+        }
+
+    }
 }
