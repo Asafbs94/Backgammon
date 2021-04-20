@@ -1,3 +1,0 @@
-C:\Users\Asaf-PC\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\203.7148.70\bin\cmake\win\bin\cmake.exe -E rm -f CMakeFiles\Backgammon.dir/objects.a
-C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\ar.exe cr CMakeFiles\Backgammon.dir/objects.a @CMakeFiles\Backgammon.dir\objects1.rsp
-C:\PROGRA~2\MINGW-~1\I686-4~1.5-P\mingw32\bin\G__~1.EXE -Wall -pedantic -g   -Wl,--whole-archive CMakeFiles\Backgammon.dir/objects.a -Wl,--no-whole-archive  -o Backgammon.exe -Wl,--out-implib,libBackgammon.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Backgammon.dir\linklibs.rsp

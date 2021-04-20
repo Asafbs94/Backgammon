@@ -1,3 +1,0 @@
-C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/Backgammon.dir
-C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Asaf-PC/CLionProjects/Backgammon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
